@@ -28,7 +28,7 @@ import sun.rmi.runtime.Log;
 public class MyGame extends ApplicationAdapter {
 	private Stage stage;
 
-
+    private int Count = 0;
 
 	int X_left= 150;
 	int X_right = 150;
@@ -55,7 +55,15 @@ public class MyGame extends ApplicationAdapter {
 	private Texture texture4;
 	private Texture texture5;
 	private Texture texture6;
+
 	private Image image8;
+	private Image image1;
+	private Image image2;
+	private Image image3;
+	private Image image4;
+	private Image image5;
+	private Image image6;
+	private Image image7;
 
 	@Override
 	public void create () {
@@ -66,9 +74,9 @@ public class MyGame extends ApplicationAdapter {
 		texture1 = new Texture("car2.png");
 		texture2 = new Texture("car13.png");
 		texture3 = new Texture("car3.png");
-		Texture texture4 = new Texture("car4.png");
-		Texture texture5 = new Texture("car5.png");
-		Texture texture6 = new Texture("car6.png");
+		texture4 = new Texture("car4.png");
+		texture5 = new Texture("car5.png");
+		texture6 = new Texture("car6.png");
 		Texture texture7 = new Texture("car7.png");
 		Texture texture8 = new Texture("car8.png");
 		Texture texture9 = new Texture("car9.png");
@@ -77,13 +85,13 @@ public class MyGame extends ApplicationAdapter {
 		texture12 = new Texture("antman.png");
 
 
-		Image image1 = new Image(texture);
-		Image image2 = new Image(texture1);
-		Image image3 = new Image(texture2);
-		Image image4 = new Image(texture3);
-		Image image5 = new Image(texture4);
-		Image image6 = new Image(texture5);
-		final Image image7 = new Image(texture6);
+		image1 = new Image(texture);
+		image2 = new Image(texture1);
+		image3 = new Image(texture2);
+		image4 = new Image(texture3);
+		image5 = new Image(texture4);
+		image6 = new Image(texture5);
+		image7 = new Image(texture6);
 		image8 = new Image(texture12);
 
 		image1.setPosition(X_left,Y_top);
@@ -139,10 +147,22 @@ public class MyGame extends ApplicationAdapter {
 		up.addListener(new ClickListener(){
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				System.out.println("Inside");
-				x = image8.getX();
-				y = image8.getY();
-				image8.setPosition(x-150,y);
+				//if(Count == 0) {
+					Count = 1;
+					System.out.println("Inside");
+					x = image8.getX();
+					y = image8.getY();
+
+				    if(image8.getX()%150 == 0) {
+						MoveToAction moveaction6 = new MoveToAction();
+						moveaction6.setPosition(x - 150, y);
+						moveaction6.setDuration(5);
+						image8.addAction(moveaction6);
+					}
+
+
+				//}
+				//image8.setPosition(x-150,y);
 				//System.out.println("-------X:-----"+x);
 				/*if(x == 1200){
 					while(x == 1200){
@@ -172,6 +192,7 @@ public class MyGame extends ApplicationAdapter {
 				x = image8.getX();
 				y = image8.getY();
 				//image8.scaleBy(2);
+				if(x+150 <= 1350)
 				image8.setPosition(x+150,y);
 				//image8.scaleBy(1);
 				return super.touchDown(event, x, y, pointer, button);
@@ -188,6 +209,7 @@ public class MyGame extends ApplicationAdapter {
 				System.out.println("Inside");
 				x = image8.getX();
 				y = image8.getY();
+				if((y-20 >= 64))
 				image8.setPosition(x,y-20);
 				return super.touchDown(event, x, y, pointer, button);
 			}
@@ -203,6 +225,7 @@ public class MyGame extends ApplicationAdapter {
 				System.out.println("Inside");
 				x = image8.getX();
 				y = image8.getY();
+				if(y+20 < 1100)
 				image8.setPosition(x,y+20);
 				return super.touchDown(event, x, y, pointer, button);
 			}
@@ -382,12 +405,66 @@ public class MyGame extends ApplicationAdapter {
 				}
 		}*/
 		float x = image8.getX();
-		System.out.println("----X-------------"+x);
-        if(x == 1050){
-			//System.out.println("**********---Collisoin-");
+		float y = image8.getY();
 
-			float y1 = image7.getX();
+        if((x < (1050+64)) && (x >=(1050-64))){
+			float y1 = image7.getY();
+			float x1 = image7.getX();
+			if(y1+128>y && y1-128 < y){
+                System.out.println("----X-------------"+x);
+                image8.clearActions();
+				image8.setPosition(1350,500);
+			}
         }
+
+        if((x < (900+64)) && (x >=(900-64))){
+            float y1 = image6.getY();
+            if(y1+64>y && y1-64 < y){
+				image8.clearActions();
+                image8.setPosition(1350,500);
+            }
+        }
+
+        if((x < (750+64)) && (x >=(750-64))){
+            float y1 = image5.getY();
+            if(y1+64>y && y1-64 < y){
+				image8.clearActions();
+                image8.setPosition(1350,500);
+            }
+        }
+
+        if((x < (600+64)) && (x >=(600-64))){
+            float y1 = image4.getY();
+            if(y1+64>y && y1-64 < y){
+				image8.clearActions();
+                image8.setPosition(1350,500);
+            }
+        }
+
+        if((x < (450+64)) && (x >=(450-64))){
+            float y1 = image3.getY();
+            if(y1+64>y && y1-64 < y){
+				image8.clearActions();
+                image8.setPosition(1350,500);
+            }
+        }
+
+        if((x < (300+64)) && (x >=(300-64))){
+            float y1 = image2.getY();
+            if(y1+64>y && y1-64 < y){
+				image8.clearActions();
+                image8.setPosition(1350,500);
+            }
+        }
+
+        if((x < (150+64)) && (x >=(150-64))){
+            float y1 = image1.getY();
+            if(y1+64>y && y1-64 < y){
+				image8.clearActions();
+                image8.setPosition(1350,500);
+            }
+        }
+
 
 	}
 	
