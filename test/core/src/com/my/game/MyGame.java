@@ -2,10 +2,12 @@ package com.my.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -14,12 +16,14 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
+import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import sun.rmi.runtime.Log;
@@ -55,6 +59,8 @@ public class MyGame extends ApplicationAdapter {
 	private Texture texture4;
 	private Texture texture5;
 	private Texture texture6;
+	private Texture texture7;
+
 
 	private Image image8;
 	private Image image1;
@@ -64,20 +70,24 @@ public class MyGame extends ApplicationAdapter {
 	private Image image5;
 	private Image image6;
 	private Image image7;
+	private Image image9;
 
 	@Override
 	public void create () {
 		stage = new Stage(new ScreenViewport());
 		Gdx.input.setInputProcessor(stage);
 
-		texture = new Texture("car12.png");
-		texture1 = new Texture("car2.png");
+		//texture = new Texture("car12.png");
+        texture = new Texture("liz.png");
+		//texture1 = new Texture("car2.png");
+        texture1 = new Texture("snake1.png");
 		texture2 = new Texture("car13.png");
+        //texture2 = new Texture("spider1.png");
 		texture3 = new Texture("car3.png");
 		texture4 = new Texture("car4.png");
 		texture5 = new Texture("car5.png");
 		texture6 = new Texture("car6.png");
-		Texture texture7 = new Texture("car7.png");
+		texture7 = new Texture("blast.png");
 		Texture texture8 = new Texture("car8.png");
 		Texture texture9 = new Texture("car9.png");
 		Texture texture10 = new Texture("car10.png");
@@ -93,6 +103,13 @@ public class MyGame extends ApplicationAdapter {
 		image6 = new Image(texture5);
 		image7 = new Image(texture6);
 		image8 = new Image(texture12);
+		image9 = new Image(texture7);
+
+
+
+
+		image9.setPosition(-200,-200);
+		image9.rotateBy(90);
 
 		image1.setPosition(X_left,Y_top);
 		image1.rotateBy(90);
@@ -137,6 +154,7 @@ public class MyGame extends ApplicationAdapter {
 		stage.addActor(image6);
 		stage.addActor(image7);
 		stage.addActor(image8);
+		stage.addActor(image9);
 
 		Skin skin1 = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
 
@@ -156,7 +174,7 @@ public class MyGame extends ApplicationAdapter {
 				    if(image8.getX()%150 == 0) {
 						MoveToAction moveaction6 = new MoveToAction();
 						moveaction6.setPosition(x - 150, y);
-						moveaction6.setDuration(5);
+						moveaction6.setDuration(1);
 						image8.addAction(moveaction6);
 					}
 
@@ -183,7 +201,7 @@ public class MyGame extends ApplicationAdapter {
 
 		TextButton down = new TextButton(">",skin1);
 		down.setSize(100,100);
-		down.setPosition(1520,500);
+		down.setPosition(1600,500);
 
 		down.addListener(new ClickListener(){
 			@Override
@@ -199,9 +217,11 @@ public class MyGame extends ApplicationAdapter {
 			}
 		});
 
-		TextButton left = new TextButton("left",skin1);
+		TextButton left = new TextButton(">",skin1);
+		left.setTransform(true);
+		left.rotateBy(-90);
 		left.setSize(100,100);
-		left.setPosition(1455,400);
+		left.setPosition(1500,500);
 
 		left.addListener(new ClickListener(){
 			@Override
@@ -215,10 +235,13 @@ public class MyGame extends ApplicationAdapter {
 			}
 		});
 
-		TextButton right = new TextButton("right",skin1);
-		right.setSize(100,100);
-		right.setPosition(1455,600);
+		TextButton right = new TextButton("<",skin1);
+		right.setTransform(true);
 
+		right.setSize(100,100);
+
+		right.rotateBy(-90);
+		right.setPosition(1500,700);
 		right.addListener(new ClickListener(){
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -396,6 +419,46 @@ public class MyGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
+		/*Gdx.gl.glLineWidth(2);
+		ShapeRenderer shape = new ShapeRenderer();
+		shape.begin(ShapeRenderer.ShapeType.Line);
+		shape.setColor(Color.BLACK);
+		shape.line(1050,0,1050,1200);
+		shape.line(900,0,900,1200);
+		shape.line(750,0,750,1200);
+		shape.line(600,0,600,1200);
+		shape.line(450,0,450,1200);
+		shape.line(300,0,300,1200);
+		shape.line(150,0,150,1200);
+		shape.end();
+		Gdx.gl.glLineWidth(2);
+
+		Gdx.gl.glLineWidth(4);
+		ShapeRenderer shape1 = new ShapeRenderer();
+		shape1.begin(ShapeRenderer.ShapeType.Line);
+		shape1.setColor(Color.GRAY);
+		shape1.line(975,0,975,1200);
+		shape1.end();
+		Gdx.gl.glLineWidth(4);
+        */
+		//image9.setPosition(-200,-200);
+		//image9.clearActions();
+		if(image9.getX()> -200){
+			Timer.schedule(new Timer.Task() {
+				@Override
+				public void run() {
+                    System.out.println("----visible---");
+					image9.setPosition(-200,-200);
+					//image9.scaleBy(1);
+					image9.clearActions();
+                    image8.setPosition(1350,500);
+					image8.clearActions();
+				}
+			},1);
+
+			//image9.setVisible(false);
+
+		}
 
 		stage.act();
 		stage.draw();
@@ -412,56 +475,62 @@ public class MyGame extends ApplicationAdapter {
 			float x1 = image7.getX();
 			if(y1+128>y && y1-128 < y){
                 System.out.println("----X-------------"+x);
+				image9.setPosition(x+20,y);
                 image8.clearActions();
-				image8.setPosition(1350,500);
 			}
         }
 
         if((x < (900+64)) && (x >=(900-64))){
             float y1 = image6.getY();
             if(y1+64>y && y1-64 < y){
+				image9.setPosition(x+20,y);
 				image8.clearActions();
-                image8.setPosition(1350,500);
+                //image8.setPosition(1350,500);
             }
         }
 
         if((x < (750+64)) && (x >=(750-64))){
             float y1 = image5.getY();
             if(y1+64>y && y1-64 < y){
+				image9.setPosition(x+20,y);
 				image8.clearActions();
-                image8.setPosition(1350,500);
+                //image8.setPosition(1350,500);
             }
         }
 
         if((x < (600+64)) && (x >=(600-64))){
             float y1 = image4.getY();
             if(y1+64>y && y1-64 < y){
+				image9.setPosition(x+20,y);
 				image8.clearActions();
-                image8.setPosition(1350,500);
+                //image8.setPosition(1350,500);
             }
         }
 
         if((x < (450+64)) && (x >=(450-64))){
             float y1 = image3.getY();
             if(y1+64>y && y1-64 < y){
+				image9.setPosition(x+20,y);
 				image8.clearActions();
-                image8.setPosition(1350,500);
+                //image8.setPosition(1350,500);
             }
         }
 
         if((x < (300+64)) && (x >=(300-64))){
             float y1 = image2.getY();
             if(y1+64>y && y1-64 < y){
+				image9.setPosition(x+20,y);
 				image8.clearActions();
-                image8.setPosition(1350,500);
+                //image8.setPosition(1350,500);
             }
         }
 
         if((x < (150+64)) && (x >=(150-64))){
             float y1 = image1.getY();
             if(y1+64>y && y1-64 < y){
+				image9.setPosition(x+20,y);
 				image8.clearActions();
-                image8.setPosition(1350,500);
+                //image8.setPosition(1350,500);
             }
         }
 
