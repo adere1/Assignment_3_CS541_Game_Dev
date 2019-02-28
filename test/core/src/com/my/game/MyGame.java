@@ -77,10 +77,10 @@ public class MyGame extends ApplicationAdapter {
 		stage = new Stage(new ScreenViewport());
 		Gdx.input.setInputProcessor(stage);
 
-		//texture = new Texture("car12.png");
-        texture = new Texture("liz.png");
-		//texture1 = new Texture("car2.png");
-        texture1 = new Texture("snake1.png");
+		texture = new Texture("car12.png");
+        //texture = new Texture("liz.png");
+		texture1 = new Texture("car2.png");
+        //texture1 = new Texture("snake1.png");
 		texture2 = new Texture("car13.png");
         //texture2 = new Texture("spider1.png");
 		texture3 = new Texture("car3.png");
@@ -174,7 +174,7 @@ public class MyGame extends ApplicationAdapter {
 				    if(image8.getX()%150 == 0) {
 						MoveToAction moveaction6 = new MoveToAction();
 						moveaction6.setPosition(x - 150, y);
-						moveaction6.setDuration(1);
+						moveaction6.setDuration(4);
 						image8.addAction(moveaction6);
 					}
 
@@ -229,7 +229,7 @@ public class MyGame extends ApplicationAdapter {
 				System.out.println("Inside");
 				x = image8.getX();
 				y = image8.getY();
-				if((y-20 >= 64))
+				if((y-20 >= 10))
 				image8.setPosition(x,y-20);
 				return super.touchDown(event, x, y, pointer, button);
 			}
@@ -248,7 +248,7 @@ public class MyGame extends ApplicationAdapter {
 				System.out.println("Inside");
 				x = image8.getX();
 				y = image8.getY();
-				if(y+20 < 1100)
+				if(y+20 < 950)
 				image8.setPosition(x,y+20);
 				return super.touchDown(event, x, y, pointer, button);
 			}
