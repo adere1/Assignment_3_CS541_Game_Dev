@@ -92,7 +92,7 @@ public class MyGame extends ApplicationAdapter {
 		Texture texture9 = new Texture("car9.png");
 		Texture texture10 = new Texture("car10.png");
 		Texture texture11 = new Texture("car11.png");
-		texture12 = new Texture("antman.png");
+		texture12 = new Texture("batman.png");
 
 
 		image1 = new Image(texture);
